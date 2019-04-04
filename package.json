@@ -1,0 +1,34 @@
+{
+  "name": "gulp-setting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-copy": "^4.0.1",
+    "gulp-count": "^1.0.0",
+    "gulp-dest-clean": "^0.5.0",
+    "gulp-file-include": "^2.0.1",
+    "gulp-html-beautify": "^1.0.1",
+    "gulp-html-replace": "^1.6.2",
+    "gulp-image": "^4.4.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-remove-empty-lines": "^0.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-server-livereload": "^1.9.2",
+    "gulp-uglify": "^3.0.2",
+    "gulp-wait": "0.0.2"
+  },
+  "dependencies": {}
+}
