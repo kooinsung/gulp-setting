@@ -16,7 +16,6 @@ var gulp = require('gulp'),
     gulpHtmlReplace = require('gulp-html-replace'),
     gulpCount = require('gulp-count'),
     gulpClean = require('gulp-dest-clean'),
-    gulpRemoveEmptyLines = require('gulp-remove-empty-lines'),
     del = require('del');
 
 var paths = {
@@ -52,7 +51,7 @@ function styles() {
   return gulp.src(paths.styles.file)
   .pipe(gulpClean(paths.styles.dest))
   .pipe(gulpCopy(paths.root.dest, {prefix: 1}))
-  .pipe(gulpWait(2000))
+  .pipe(gulpWait(1000))
   .pipe(gulpSass({outputStyle: 'compact'}).on('error', gulpSass.logError))
   .pipe(gulpInsert.prepend('@charset "UTF-8";\n'))
   .pipe(gulp.dest(paths.styles.dest))
