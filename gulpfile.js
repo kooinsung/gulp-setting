@@ -24,19 +24,19 @@ var paths = {
     dest: 'dist'
   },
   styles: {
-    file: 'src/css/**/*',
-    src: 'src/css',
-    dest: 'dist/css'
+    file: 'src/assets/css/**/*',
+    src: 'src/assets/css',
+    dest: 'dist/assets/css'
   },
   scripts: {
-    file: 'src/js/**/*',
-    src: 'src/js',
-    dest: 'dist/js'
+    file: 'src/assets/js/**/*',
+    src: 'src/assets/js',
+    dest: 'dist/assets/js'
   },
   images: {
-    file: 'src/images/**/*',
-    src: 'src/images',
-    dest: 'dist/images'
+    file: 'src/assets/images/**/*',
+    src: 'src/assets/images',
+    dest: 'dist/assets/images'
   },
   html: {
     file: 'src/html/**/*.html',
@@ -100,8 +100,8 @@ function html() {
     basepath: '@file'
   }))
   .pipe(gulpHtmlReplace({
-    'css': '../css/all.min.css',
-    'js': '../js/all.min.js'
+    'css': '../assets/css/all.min.css',
+    'js': '../assets/js/all.min.js'
   }))
 
   .pipe(gulpHtmlBeautify({
@@ -124,7 +124,7 @@ function webServer() {
 
 //delete
 function clean() {
-  return del([paths.styles.dest + '/css', paths.styles.dest + '/js', paths.html.dest + '/*.html']);
+  return del([paths.styles.dest + '/assets/css', paths.styles.dest + '/assets/js', paths.html.dest + '/*.html']);
 }
 
 function watch() {
