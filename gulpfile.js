@@ -40,7 +40,7 @@ var paths = {
   },
   html: {
     file: 'src/html/**/*.html',
-    include: 'src/include',
+    include: 'src/include/**/*.html',
     src: 'src/html',
     dest: 'dist/html'
   }
@@ -94,7 +94,7 @@ function images() {
 function html() {
   return gulp.src(paths.html.file)
   .pipe(gulpClean(paths.html.dest))
-  .pipe(gulpNewer(paths.html.dest))
+  //.pipe(gulpNewer(paths.html.dest))
   .pipe(gulpInclude({
     prefix: '@@',
     basepath: '@file'
@@ -128,7 +128,7 @@ function clean() {
 }
 
 function watch() {
-  gulp.watch(paths.html.include + '/*.html', html);
+  gulp.watch(paths.html.include, html);
   gulp.watch(paths.html.file, html);
   gulp.watch(paths.scripts.file, scripts);
   gulp.watch(paths.styles.file, styles);
