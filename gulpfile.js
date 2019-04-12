@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     gulpRename = require('gulp-rename'),
     gulpInsert = require('gulp-insert'),
     gulpCopy = require('gulp-copy'),
-    gulpInclude = require('gulp-file-include'),
+    gulpHtmlInclude = require('gulp-html-tag-include'),
     gulpReload = require('gulp-server-livereload'),
     gulpImageMin = require('gulp-image'),
     gulpNewer = require('gulp-newer'),
@@ -34,7 +34,7 @@ var paths = {
     dest: 'dist/assets/js'
   },
   images: {
-    file: 'src/assets/images/**/*',
+    file: 'src/asset/images/**/*',
     src: 'src/assets/images',
     dest: 'dist/assets/images'
   },
@@ -94,16 +94,12 @@ function images() {
 function html() {
   return gulp.src(paths.html.file)
   .pipe(gulpClean(paths.html.dest))
-  //.pipe(gulpNewer(paths.html.dest))
-  .pipe(gulpInclude({
-    prefix: '@@',
-    basepath: '@file'
-  }))
+  .pipe(gulpNewer(paths.html.dest))
+  .pipe(gulpHtmlInclude())
   .pipe(gulpHtmlReplace({
     'css': '../assets/css/all.min.css',
     'js': '../assets/js/all.min.js'
   }))
-
   .pipe(gulpHtmlBeautify({
     "indent_size": 2
   }))
@@ -115,7 +111,7 @@ function html() {
 function webServer() {
   return gulp.src(paths.root.dest)
   .pipe(gulpReload({
-    port: 9999,
+    port: 1234,
     livereload: true,
     open: true,
     defaultFile: '/html/index.html',
@@ -128,11 +124,10 @@ function clean() {
 }
 
 function watch() {
-  gulp.watch(paths.html.include, html);
-  gulp.watch(paths.html.file, html);
-  gulp.watch(paths.scripts.file, scripts);
   gulp.watch(paths.styles.file, styles);
+  gulp.watch(paths.scripts.file, scripts);
   gulp.watch(paths.images.file, images);
+  gulp.watch(paths.html.file, html);
 }
 
 // var build = gulp.parallel(clean, styles, scripts, images, html, watch);
