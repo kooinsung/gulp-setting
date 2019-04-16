@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     gulpHtmlBeautify = require('gulp-html-beautify'),
+    gulpHtmlInclude = require('gulp-html-tag-include'),
     gulpWait = require('gulp-wait'),
     gulpSass = require('gulp-sass'),
     gulpCleanCss = require('gulp-clean-css'),
@@ -9,12 +10,12 @@ var gulp = require('gulp'),
     gulpRename = require('gulp-rename'),
     gulpInsert = require('gulp-insert'),
     gulpCopy = require('gulp-copy'),
-    gulpHtmlInclude = require('gulp-html-tag-include'),
     gulpReload = require('gulp-server-livereload'),
     gulpImageMin = require('gulp-image'),
     gulpNewer = require('gulp-newer'),
     gulpHtmlReplace = require('gulp-html-replace'),
     gulpCount = require('gulp-count'),
+    gulpEmptyLine = require('gulp-remove-empty-lines'),
     gulpClean = require('gulp-dest-clean'),
     del = require('del');
 
@@ -103,6 +104,7 @@ function html() {
   .pipe(gulpHtmlBeautify({
     "indent_size": 2
   }))
+  .pipe(gulpEmptyLine())
   .pipe(gulp.dest(paths.html.dest))
   .pipe(gulpCount('<%= counter %> html files'));
 }
