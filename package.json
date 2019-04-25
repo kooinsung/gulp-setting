@@ -22,13 +22,14 @@
     "gulp-html-tag-include": "^1.0.1",
     "gulp-image": "^4.4.1",
     "gulp-insert": "^0.5.0",
+    "gulp-livereload": "^4.0.1",
     "gulp-newer": "^1.4.0",
     "gulp-remove-empty-lines": "^0.1.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-server-livereload": "^1.9.2",
     "gulp-uglify": "^3.0.2",
-    "gulp-wait": "0.0.2"
+    "gulp-wait": "0.0.2",
+    "gulp-webserver": "^0.9.1"
   },
   "dependencies": {}
 }
