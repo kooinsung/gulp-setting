@@ -10,14 +10,13 @@ var gulp = require('gulp'),
     gulpRename = require('gulp-rename'),
     gulpInsert = require('gulp-insert'),
     gulpCopy = require('gulp-copy'),
-    gulpWebserver = require('gulp-webserver'),
-    gulpReload = require('gulp-livereload'),
     gulpImageMin = require('gulp-image'),
     gulpNewer = require('gulp-newer'),
     gulpHtmlReplace = require('gulp-html-replace'),
     gulpCount = require('gulp-count'),
     gulpEmptyLine = require('gulp-remove-empty-lines'),
     gulpClean = require('gulp-dest-clean'),
+    browserSync = require('browser-sync').create(),
     del = require('del');
 
 var paths = {
@@ -48,14 +47,6 @@ var paths = {
   }
 };
 
-//webserver
-function server() {
-  return gulp.src(paths.html.dest + '/')
-  .pipe(gulpWebserver({
-    port: 9998,
-  }));
-}
-
 //css
 function styles() {
   return gulp.src(paths.styles.file)
@@ -76,7 +67,7 @@ function styles() {
   }))
   .pipe(gulpCleanCss())
   .pipe(gulp.dest(paths.styles.dest))
-  .pipe(gulpReload())
+  .pipe(browserSync.reload({stream: true}))
   .pipe(gulpCount('<%= counter %> css files'));
 }
 
@@ -88,7 +79,7 @@ function scripts() {
   .pipe(gulpUglify())
   .pipe(gulpConcat('all.min.js'))
   .pipe(gulp.dest(paths.scripts.dest))
-  .pipe(gulpReload())
+  .pipe(browserSync.reload({stream: true}))
   .pipe(gulpCount('<%= counter %> js files'));
 }
 
@@ -115,9 +106,9 @@ function html() {
   .pipe(gulpHtmlBeautify({
     "indent_size": 2
   }))
-  .pipe(gulpEmptyLine())
+  // .pipe(gulpEmptyLine())
   .pipe(gulp.dest(paths.html.dest))
-  .pipe(gulpReload())
+  .pipe(browserSync.reload({stream: true}))
   .pipe(gulpCount('<%= counter %> html files'));
 }
 
@@ -128,16 +119,21 @@ function clean() {
 
 //watch
 function watch() {
-  gulpReload.listen();
+  browserSync.init({
+    server: {
+      baseDir: paths.root.dest + "/",
+      index: "./html/index.html"
+    }
+  });
+
   gulp.watch(paths.styles.file, styles);
   gulp.watch(paths.scripts.file, scripts);
   gulp.watch(paths.images.file, images);
-  gulp.watch(paths.html.file, html);
-  gulp.watch(paths.html.dest + '/**').on('change', gulpReload.changed);
+  gulp.watch(paths.html.file, html).on('change', browserSync.reload);
 }
 
 // var build = gulp.parallel(clean, styles, scripts, images, html, watch);
-var build = gulp.series(clean, server, styles, scripts, images, html, watch);
+var build = gulp.series(clean, styles, scripts, images, html, watch);
 
 gulp.task(build);
 gulp.task('default', build);
