@@ -57,12 +57,11 @@ function styles() {
   .pipe(gulpWait(500))
   // .pipe(gulpSass({outputStyle: 'compact'}).on('error', gulpSass.logError))
   .pipe(gulpSass({
-    outputStyle: 'compact',
-    includePaths: ['src/assets/css/']
+    outputStyle: 'compact'
   }))
   // .pipe(gulpInsert.prepend('@charset "UTF-8";\n'))
   .pipe(gulp.dest(paths.styles.dest))
-  .pipe(gulpConcat('all.min.css'))
+  .pipe(gulpConcat('alla.min.css'))
   .pipe(gulpRename({
     basename: 'all',
     suffix: '.min'
@@ -82,9 +81,13 @@ function scripts() {
   return gulp.src(paths.scripts.file)
   .pipe(gulpPlumber())
   .pipe(gulpClean(paths.scripts.dest))
-  .pipe(gulpCopy(paths.root.dest, {prefix: 1}))
-  .pipe(gulpUglify())
-  .pipe(gulpConcat('all.min.js'))
+  .pipe(gulpNewer(paths.scripts.dest))
+  // .pipe(gulpCopy(paths.root.dest, {prefix: 1}))
+  // .pipe(gulpUglify())
+  // .pipe(gulpRename({
+  //   suffix: '.min'
+  // }))
+  // .pipe(gulpConcat('all.min.js'))
   .pipe(gulp.dest(paths.scripts.dest))
   .pipe(browserSync.reload({stream: true}))
   .pipe(gulpCount('<%= counter %> js files'));
@@ -108,10 +111,10 @@ function html() {
   .pipe(gulpClean(paths.html.dest))
   .pipe(gulpNewer(paths.html.dest))
   .pipe(gulpHtmlInclude())
-  .pipe(gulpHtmlReplace({
-    'css': '../assets/css/all.min.css',
-    'js': '../assets/js/all.min.js'
-  }))
+  // .pipe(gulpHtmlReplace({
+  //   'css': '../assets/css/all.min.css',
+  //   'js': '../assets/js/all.min.js'
+  // }))
   .pipe(gulpHtmlBeautify({
     "indent_size": 2
   }))
